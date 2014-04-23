@@ -2,3 +2,6 @@
 *.sublime-workspace
 config.cfg
 demo.csv
+.DS_Store
+server.go
+main.go
