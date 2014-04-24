@@ -71,15 +71,15 @@ type GroupMemberItem struct {
  * see http://doc.gitlab.com/ce/api/commits.html
  */
 type CommitItem struct {
-	Id             string   `json:id`
-	ShortId        string   `json:"short_id"`
-	Title          string   `json:title`
-	AuthorName     string   `json:author_name`
-	AuthorEmail    string   `json:author_email`
-	CreatedAt      string   `json:"created_at"`
-	CommiittedDate string   `json:"committed_date"`
-	AuthoredDate   string   `json:"authored_date"`
-	ParentIds      []string `json:"parent_ids"`
+	Id             string        `json:id`
+	ShortId        string        `json:"short_id"`
+	Title          string        `json:title`
+	AuthorName     string        `json:author_name`
+	AuthorEmail    string        `json:author_email`
+	CreatedAt      string        `json:"created_at"`
+	CommiittedDate string        `json:"committed_date"`
+	AuthoredDate   string        `json:"authored_date"`
+	ParentIds      []*CommitItem `json:"parent_ids"`
 }
 
 /**
@@ -155,4 +155,106 @@ type MileStoneItem struct {
 	State       string `json:state`
 	UpdatedAt   string `json:"updated_at"`
 	CreatedAt   string `json:"created_at"`
+}
+
+/**
+ * system hook test result item struct
+ */
+type TestHookItem struct {
+	Id         uint32 `json:id`
+	EventName  string `json:"event_name"`
+	Name       string `json:name`
+	Path       string `json:path`
+	ProjectId  int    `json:"project_id"`
+	OwnerName  string `json:"owner_name"`
+	OwnerEmail string `json:"owner_email"`
+}
+
+/**
+ * system hook item struct
+ *
+ * see http://doc.gitlab.com/ce/api/system_hooks.html
+ */
+type HookItem struct {
+	Id        uint32 `json:id`
+	Url       string `json:url`
+	CreatedAt string `json:"created_at"`
+}
+
+/**
+ * deploy keys item struct
+ *
+ * @see http://doc.gitlab.com/ce/api/deploy_keys.html
+ */
+type DeployKeyItem struct {
+	Id        uint32 `json:id`
+	Title     string `json:title`
+	Key       string `json:key`
+	CreatedAt string `json:"created_at"`
+}
+
+/**
+ * gitlab wall note item struct
+ *
+ * @see http://doc.gitlab.com/ce/api/notes.html
+ */
+type WallNoteItem struct {
+	Id         uint32 `json:id`
+	Body       string `json:body`
+	Attachment string `json:attachment`
+	Author     *User  `json:author`
+	CreatedAt  string `json:"created_at"`
+}
+
+type IssueNoteItem WallNoteItem
+type MergeNoteItem WallNoteItem
+
+/**
+ * snippet note struct
+ * see http://doc.gitlab.com/ce/api/notes.html
+ */
+type SnippetNoteItem struct {
+	Id        uint32 `json:id`
+	Title     string `json:title`
+	FileName  string `json:"file_name"`
+	Author    *User  `json:author`
+	ExpiresAt string `json:"expires_at"`
+	UpdatedAt string `json:"updated_at"`
+	CreatedAt string `json:"created_at"`
+}
+
+/**
+ * issue struct
+ *
+ * see http://doc.gitlab.com/ce/api/issues.html
+ */
+type IssueItem struct {
+	Id          uint32         `json:id`
+	Iid         uint32         `json:iid`
+	ProjectId   uint32         `json:"project_id"`
+	Title       string         `json:title`
+	Description string         `json:description`
+	Labels      []string       `json:labels`
+	Milestone   *MileStoneItem `json:milestone`
+	Assignee    *User          `json:assignee`
+	Author      *User          `json:Author`
+	State       string         `json:state`
+	UpdatedAt   string         `json:"updated_at"`
+	CreatedAt   string         `json:"created_at"`
+}
+
+/**
+ * branch item
+ *
+ * see http://doc.gitlab.com/ce/api/branches.html
+ */
+type BranchItem struct {
+	Name          string      `json:name`
+	Commit        *CommitItem `json:commit`
+	Tree          string      `json:tree`
+	Message       string      `json:message`
+	Author        *User       `json:author`
+	Committer     *User       `json:committer`
+	AuthoredDate  string      `json:"authored_date"`
+	CommittedDate string      `json:"committed_date"`
 }
